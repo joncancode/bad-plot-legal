@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bad Plot Support</title>
+<style>
+  :root {
+    --bg: #f3f2f2;
+    --surface: #eae9e9;
+    --ink: #201e1d;
+    --accent: #ec3013;
+    --accent-700: #ae1800;
+    --divider: rgba(32, 30, 29, 0.4);
+    --neutral-500: #9b9797;
+    --neutral-700: #605d5d;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Archivo', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px 96px;
+  }
+
+  .band {
+    background: var(--ink);
+    border-bottom: 2px solid var(--accent);
+    padding: 28px 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .wordmark {
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--bg);
+  }
+
+  .band .doc-label {
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 6px 10px;
+  }
+
+  h1 {
+    font-family: inherit;
+    font-weight: 800;
+    font-size: clamp(30px, 5vw, 40px);
+    letter-spacing: -0.01em;
+    line-height: 1.08;
+    text-wrap: balance;
+    margin: 28px 4px 8px;
+  }
+
+  .lede {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--neutral-700);
+    margin: 0 4px 8px;
+    max-width: 60ch;
+  }
+
+  section {
+    padding: 28px 4px;
+    border-bottom: 2px solid var(--divider);
+  }
+
+  section:last-of-type {
+    border-bottom: none;
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 5px 9px;
+    margin-bottom: 14px;
+  }
+
+  h2 {
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 21px;
+    letter-spacing: -0.005em;
+    margin: 0 0 12px;
+    text-wrap: balance;
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 1.65;
+    margin: 0 0 14px;
+    max-width: 62ch;
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  ul {
+    margin: 0 0 14px;
+    padding-left: 20px;
+    max-width: 62ch;
+  }
+
+  li {
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 8px;
+  }
+
+  li:last-child { margin-bottom: 0; }
+
+  strong { font-weight: 700; }
+
+  .faq-item + .faq-item {
+    margin-top: 22px;
+  }
+
+  .faq-q {
+    font-weight: 700;
+    font-size: 15px;
+    margin: 0 0 6px;
+  }
+
+  .placeholder {
+    background: var(--surface);
+    border: 2px dashed var(--neutral-500);
+    padding: 2px 6px;
+    font-weight: 700;
+  }
+
+  .contact-block {
+    background: var(--surface);
+    border: 2px solid var(--ink);
+    padding: 20px;
+    max-width: 62ch;
+  }
+
+  .contact-block .label {
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--neutral-700);
+    margin-bottom: 6px;
+  }
+
+  .contact-block a {
+    color: var(--accent-700);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .contact-block a:hover,
+  .contact-block a:focus-visible {
+    text-decoration: underline;
+  }
+
+  footer {
+    padding: 24px 4px 0;
+    color: var(--neutral-700);
+    font-size: 13px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16151a;
+      --surface: #201e27;
+      --ink: #f2efe9;
+      --accent: #ff5b3d;
+      --accent-700: #ff8367;
+      --divider: rgba(242, 239, 233, 0.25);
+      --neutral-500: #726c80;
+      --neutral-700: #9a94a6;
+    }
+    .band { background: var(--surface); }
+    .wordmark, .band .doc-label { color: var(--bg); }
+    .band .doc-label { background: var(--accent); }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #16151a;
+    --surface: #201e27;
+    --ink: #f2efe9;
+    --accent: #ff5b3d;
+    --accent-700: #ff8367;
+    --divider: rgba(242, 239, 233, 0.25);
+    --neutral-500: #726c80;
+    --neutral-700: #9a94a6;
+  }
+  :root[data-theme="dark"] .band { background: var(--surface); }
+  :root[data-theme="dark"] .wordmark,
+  :root[data-theme="dark"] .band .doc-label { color: var(--bg); }
+  :root[data-theme="dark"] .band .doc-label { background: var(--accent); }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="page">
+  <div class="band">
+    <div class="wordmark">Bad Plot</div>
+    <div class="doc-label">Support</div>
+  </div>
+
+  <h1>Need a hand with Bad Plot?</h1>
+  <p class="lede">Answers to the most common questions, and a direct line if yours isn't here.</p>
+
+  <section>
+    <div class="tag">FAQ</div>
+    <h2>Common questions</h2>
+
+    <div class="faq-item">
+      <p class="faq-q">My streak or stats disappeared.</p>
+      <p>Progress is stored only on your device, not in an account. Reinstalling the app, switching phones, or clearing app data will reset your streak and stats — there's currently no way to back them up or transfer them. This is on the roadmap.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">I typed the right movie and it said I was wrong.</p>
+      <p>Guesses are checked with some tolerance for typos, missing "The"/"A" articles, and punctuation — so "Godfather" and "the godfather" both work. If a correct-seeming guess still isn't accepted, it's likely a genuine typo past that tolerance, or an alternate title Bad Plot doesn't recognize yet. Let us know which puzzle and what you typed, and we'll add it.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Is there a way to skip today's puzzle or see tomorrow's early?</p>
+      <p>No — one puzzle a day, same for everyone, is the whole point. There's no skip, no preview, no way to play ahead.</p>
+    </div>
+
+    <div class="faq-item">
+      <p class="faq-q">Does the daily puzzle cost anything?</p>
+      <p>No. The daily puzzle is free and always will be — that's a hard rule for this app, not a launch promise that changes later.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="tag">Contact</div>
+    <h2>Still stuck?</h2>
+    <p>Send a note with as much detail as you can — which puzzle, what you were doing, and what happened instead of what you expected. You can email, or use the Feedback option inside the app (Stats &rarr; About &rarr; Send feedback). In-app feedback is anonymous, so include an email address if you'd like a reply.</p>
+    <div class="contact-block">
+      <div class="label">Email</div>
+      <p style="margin-bottom: 0;"><a href="mailto:jc.haines19@gmail.com">jc.haines19@gmail.com</a></p>
+    </div>
+  </section>
+
+  <footer>Bad Plot · a daily movie-guessing game. See also the <a href="./" style="color: var(--accent-700); font-weight: 700;">privacy policy</a>.</footer>
+</div>
+
+</body>
+</html>
